@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String sayHello() {
+	public String sayHello(Boolean test) {
 		return "Hello";
 	}
 

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReflectionConfig {
 
+	private static final String COM_HARRISON = "com.harrison";
+
 	@Bean
 	public Reflections reflections() {
-		return new Reflections("com.harrison");
+		return new Reflections(COM_HARRISON);
 	}
 	
 }
