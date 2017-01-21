@@ -31,5 +31,6 @@ repositories {
 
 dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.4.0.RELEASE'
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
