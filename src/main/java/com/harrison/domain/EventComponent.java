@@ -26,6 +26,9 @@ public class EventComponent implements Serializable {
 	@Column(name = "id")
 	private long id;
 	
+	@Column(name = "is_planning")
+	private boolean isPlanning;
+	
 	@NotNull
 	@Column(name = "event_id")
 	private String eventId;
@@ -40,8 +43,9 @@ public class EventComponent implements Serializable {
 		//default constructor
 	}
 
-	public EventComponent(long id, String eventId, String esn, EventUnitSource eventUnitSource) {
+	public EventComponent(long id, boolean isPlanning, String eventId, String esn, EventUnitSource eventUnitSource) {
 		this.id = id;
+		this.isPlanning = isPlanning;
 		this.eventId = eventId;
 		this.esn = esn;
 		this.eventUnitSource = eventUnitSource;
@@ -53,6 +57,14 @@ public class EventComponent implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public boolean isPlanning() {
+		return isPlanning;
+	}
+
+	public void setPlanning(boolean isPlanning) {
+		this.isPlanning = isPlanning;
 	}
 
 	public String getEventId() {

@@ -36,7 +36,7 @@ public class EventUnitSource implements Serializable {
 
 	@JsonIgnore
 	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "event_component_primary_key", unique = true, nullable = false)
+	@JoinColumn(name = "event_component_id", unique = true, nullable = false)
 	public EventComponent event;
 
 	public EventUnitSource() {
