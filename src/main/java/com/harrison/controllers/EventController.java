@@ -1,8 +1,12 @@
 package com.harrison.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +21,10 @@ import com.harrison.repository.EventUnitSourceRepository;
 @RequestMapping(value = "/")
 public class EventController {
 	
+	private static final String ALPHA = "ALPHA";
+
+	private static final String CHARLIE = "CHARLIE";
+
 	@Autowired
 	private EventComponentRepository eventComponentRepository;
 	
@@ -41,6 +49,23 @@ public class EventController {
 	@RequestMapping(value = "eventcomponent", method = RequestMethod.DELETE)
 	public EventComponent deleteEvent(@RequestBody EventComponent eventComponent) {
 		throw new UnsupportedOperationException("You cannot change this table!");
+	}
+	
+	@RequestMapping(value = "event/{id}/sources")
+	public Map<String, List<String>> getSources(@PathVariable(value = "id") String id) {
+		Map<String, List<String>> map = new HashMap<>();
+		List<EventComponent> components = eventComponentRepository.findByEventId(id);
+		List<String> charlieIds = components.stream()
+									.filter(c -> c.getEventUnitSource().getSourceName().equals(CHARLIE))
+									.map(c -> c.getEventUnitSource().getSourceId())
+									.collect(Collectors.toList());
+		List<String> alphaIds = components.stream()
+									.filter(c -> c.getEventUnitSource().getSourceName().equals(ALPHA))
+									.map(c -> c.getEventUnitSource().getSourceId())
+									.collect(Collectors.toList());
+		map.put(CHARLIE, charlieIds);
+		map.put(ALPHA, alphaIds);
+		return map;
 	}
 
 	private EventComponent save(EventComponent ec) {

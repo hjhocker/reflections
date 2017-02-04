@@ -13,5 +13,7 @@ public interface EventComponentRepository extends JpaRepository<EventComponent, 
 	List<EventComponent> findAll();
 	
 	EventComponent findById(long id);
+	
+	List<EventComponent> findByEventId(String id);
 
 }
