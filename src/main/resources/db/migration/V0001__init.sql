@@ -39,7 +39,7 @@ ALTER TABLE event_unit_sources
 -- Only allow 1 Alpha component per Event. Makes the
 -- unique_eventId_esn_isPlanning_constraint constraint
 -- from just adding tons of Alpha components to an event
-CREATE OR REPLACE FUNCTION fv_is_alpha_ok_to_insert(eci bigint, sn varchar)
+CREATE OR REPLACE FUNCTION fv_only_one_alpha_component_per_event(eci bigint, sn varchar)
   returns boolean as
 $$
 BEGIN
@@ -55,5 +55,5 @@ $$
 LANGUAGE 'plpgsql';
 
 alter table event_unit_sources
-  add constraint fv_is_alpha_ok_to_insert_constraint
-  CHECK (fv_is_alpha_ok_to_insert(event_component_id, source_name));
+  add constraint fv_only_one_alpha_component_per_event_constraint
+  CHECK (fv_only_one_alpha_component_per_event(event_component_id, source_name));
