@@ -2,8 +2,6 @@ package com.harrison.controllers;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,14 +32,28 @@ public class EventController {
 	public EventComponent createEvent(@RequestBody EventComponent eventComponent) {
 		return save(eventComponent);
 	}
+	
+	@RequestMapping(value = "eventcomponent", method = RequestMethod.POST)
+	public EventComponent updateEvent(@RequestBody EventComponent eventComponent) {
+		throw new UnsupportedOperationException("You cannot change this table!");
+	}
+	
+	@RequestMapping(value = "eventcomponent", method = RequestMethod.DELETE)
+	public EventComponent deleteEvent(@RequestBody EventComponent eventComponent) {
+		throw new UnsupportedOperationException("You cannot change this table!");
+	}
 
-	@Transactional
 	private EventComponent save(EventComponent ec) {
 		EventUnitSource eus = ec.getEventUnitSource();
 		ec.setEventUnitSource(null);
 		ec = eventComponentRepository.save(ec);
 		eus.setEvent(ec);
-		eus = eventUnitSourceRepository.save(eus);
+		try {
+			eus = eventUnitSourceRepository.save(eus);
+		} catch (Exception e) {
+			eventComponentRepository.delete(ec);
+			throw new RuntimeException(e);
+		}
 		ec.setEventUnitSource(eus);
 		return ec;
 	}

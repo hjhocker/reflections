@@ -11,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "events")
+@Transactional
+@Table(name = "event_components")
 public class EventComponent implements Serializable {
 
 	private static final long serialVersionUID = -1236516142120043487L;
