@@ -2,9 +2,12 @@ package com.harrison.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,11 +15,12 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "events")
-public class Event implements Serializable {
+public class EventComponent implements Serializable {
 
 	private static final long serialVersionUID = -1236516142120043487L;
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
@@ -27,14 +31,14 @@ public class Event implements Serializable {
 	@Column(name = "esn")
 	private String esn;
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "event", optional = false)
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "event", optional = false, cascade = CascadeType.ALL)
 	private EventUnitSource eventUnitSource;
 
-	public Event() {
+	public EventComponent() {
 		//default constructor
 	}
 
-	public Event(long id, String eventId, String esn, EventUnitSource eventUnitSource) {
+	public EventComponent(long id, String eventId, String esn, EventUnitSource eventUnitSource) {
 		this.id = id;
 		this.eventId = eventId;
 		this.esn = esn;

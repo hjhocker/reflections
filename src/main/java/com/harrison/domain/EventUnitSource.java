@@ -2,9 +2,12 @@ package com.harrison.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -19,6 +22,7 @@ public class EventUnitSource implements Serializable {
 	private static final long serialVersionUID = 3225553595128126839L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
@@ -29,15 +33,15 @@ public class EventUnitSource implements Serializable {
 	private String sourceId;
 
 	@JsonIgnore
-	@OneToOne(optional = true, fetch = FetchType.LAZY)
-	@JoinColumn(name = "event_primary_key", unique = true, nullable = false, updatable = false)
-	public Event event;
+	@OneToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "event_primary_key", unique = true, nullable = false)
+	public EventComponent event;
 
 	public EventUnitSource() {
 		//default constructor
 	}
 	
-	public EventUnitSource(long id, String sourceName, String sourceId, Event event) {
+	public EventUnitSource(long id, String sourceName, String sourceId, EventComponent event) {
 		this.id = id;
 		this.sourceName = sourceName;
 		this.sourceId = sourceId;
@@ -68,11 +72,11 @@ public class EventUnitSource implements Serializable {
 		this.sourceId = sourceId;
 	}
 
-	public Event getEvent() {
+	public EventComponent getEvent() {
 		return event;
 	}
 
-	public void setEvent(Event event) {
+	public void setEvent(EventComponent event) {
 		this.event = event;
 	}
 	
