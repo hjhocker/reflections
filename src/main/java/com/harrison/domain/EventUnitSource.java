@@ -12,12 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Transactional
 @Table(name = "event_unit_sources")
 public class EventUnitSource implements Serializable {
 

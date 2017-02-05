@@ -16,6 +16,7 @@ import com.harrison.domain.EventComponent;
 import com.harrison.domain.EventUnitSource;
 import com.harrison.repository.EventComponentRepository;
 import com.harrison.repository.EventUnitSourceRepository;
+import com.harrison.views.Event;
 
 @RestController
 @RequestMapping(value = "/")
@@ -67,10 +68,16 @@ public class EventController {
 		map.put(ALPHA, alphaIds);
 		return map;
 	}
+	
+	@RequestMapping(value = "event", method = RequestMethod.PUT)
+	public Event createEvent(@RequestBody Event event) {
+		return saveEvent(event);
+	}
 
 	private EventComponent save(EventComponent ec) {
 		EventUnitSource eus = ec.getEventUnitSource();
-		ec.setEventUnitSource(null);
+		eus.setSourceName(eus.getSourceName().toUpperCase());
+		ec.setEventUnitSource(null);		
 		ec = eventComponentRepository.save(ec);
 		eus.setEvent(ec);
 		try {
@@ -81,6 +88,17 @@ public class EventController {
 		}
 		ec.setEventUnitSource(eus);
 		return ec;
+	}
+	
+	private Event saveEvent(Event event) {
+		for (Map.Entry<String, String> entry : event.getEsns().entrySet()) {
+			EventUnitSource eus = eventUnitSourceRepository.findBySourceNameAndSourceId(entry.getKey(), entry.getValue());
+			if (eus != null) {
+				throw new RuntimeException("Event Component already exists for " + entry.getKey() + " - " + entry.getValue());
+			}
+		}
+		EventComponent ec = new EventComponent();
+		return null;
 	}
 	
 }

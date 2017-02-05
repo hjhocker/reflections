@@ -36,7 +36,7 @@ ALTER TABLE event_unit_sources
    ADD CONSTRAINT sourceName_is_charlie_or_alpha_constraint
    CHECK (source_name IN ('ALPHA', 'CHARLIE'));
 
--- Only allow 1 Alpha component per Event. Makes the
+-- Only allow 1 Alpha component per Event. The
 -- unique_eventId_esn_isPlanning_constraint constraint
 -- from just adding tons of Alpha components to an event
 CREATE OR REPLACE FUNCTION fv_only_one_alpha_component_per_event(eci bigint, sn varchar)

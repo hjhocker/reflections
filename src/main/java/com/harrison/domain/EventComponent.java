@@ -11,11 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Transactional
 @Table(name = "event_components")
 public class EventComponent implements Serializable {
 
