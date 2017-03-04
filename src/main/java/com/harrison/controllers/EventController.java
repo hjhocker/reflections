@@ -97,7 +97,6 @@ public class EventController {
 				throw new RuntimeException("Event Component already exists for " + entry.getKey() + " - " + entry.getValue());
 			}
 		}
-		EventComponent ec = new EventComponent();
 		return null;
 	}
 	
