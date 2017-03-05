@@ -19,7 +19,7 @@ import com.harrison.repository.EventUnitSourceRepository;
 import com.harrison.views.Event;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/api/event")
 public class EventController {
 	
 	private static final String ALPHA = "ALPHA";

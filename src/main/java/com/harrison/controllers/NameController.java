@@ -11,7 +11,7 @@ import com.harrison.domain.Name;
 import com.harrison.repository.NameRepository;
 
 @RestController
-@RequestMapping(value = "/name")
+@RequestMapping(value = "/api/name")
 public class NameController {
 
 	@Autowired

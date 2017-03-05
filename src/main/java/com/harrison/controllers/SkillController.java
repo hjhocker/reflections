@@ -14,7 +14,7 @@ import com.harrison.domain.Skill;
 import com.harrison.repository.SkillRepository;
 
 @RestController
-@RequestMapping(value = "/skills")
+@RequestMapping(value = "/api/skills")
 public class SkillController {
 
 	@Autowired
