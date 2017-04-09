@@ -64,7 +64,7 @@ public class CouchbaseClient {
         
         N1qlQueryResult res = bucket.query(
         	N1qlQuery.simple(
-        			"select * from default "
+        			"select meta(default).*, * from default "
         			+ "where any interest in default.interests satisfies "
         			+ "interest like 'Holy%' END")
         );
