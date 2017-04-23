@@ -12,6 +12,17 @@ buildscript {
 	}
 }
 
+plugins {
+  id "org.sonarqube" version "2.3"
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+				property "sonar.sources", "src/main/java" 
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
