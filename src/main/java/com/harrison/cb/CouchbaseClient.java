@@ -18,6 +18,7 @@ import com.couchbase.client.java.query.N1qlQueryRow;
 @Service
 public class CouchbaseClient {
 	
+    public static String stuff = "harrison";
 	
 	public List<String> doCbStuff() {
 		Cluster cluster = CouchbaseCluster.create("localhost");
