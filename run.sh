@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./gradlew bootRun
+SPRING_PROFILES_ACTIVE=local ./gradlew bootRun
