@@ -7,6 +7,9 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.harrison.enums.Proficiency;
 import com.harrison.enums.ProficiencyConverter;
@@ -21,9 +24,11 @@ public class Skill implements Serializable {
 	@Column(name = "name")
 	private String name;
 
+	@NotBlank
 	@Column(name = "years_of_experience")
 	private float yearsOfExperience;
 
+	@NotNull
 	@Column(name = "proficiency")
 	@Convert(converter = ProficiencyConverter.class)
 	private Proficiency proficiency;
