@@ -12,7 +12,7 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 
 @Component
 @Profile("local")
-public class PostgresConfig {
+public class EmbeddedPostgresConfig {
 
     @Bean
     public DataSource dataSource() throws IOException {
