@@ -41,10 +41,11 @@ public class EventController {
 	    String[] data = new String[6];
 	    Arrays.sort(data, new Comparator<String>() {
             @Override
-            public int compare(String o1, String o2) {
+            public int compare(String o1, String o2)  {
                 // TODO Auto-generated method stub
-                return 0;
+                return 0; 
             }
+            
         });
 		return eventComponentRepository.findAll();
 	}
