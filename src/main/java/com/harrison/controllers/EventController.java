@@ -1,5 +1,8 @@
 package com.harrison.controllers;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,14 @@ public class EventController {
 	
 	@RequestMapping(value = "eventcomponents", method = RequestMethod.GET)
 	public List<EventComponent> getEvents() {
+	    String[] data = new String[6];
+	    Arrays.sort(data, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                // TODO Auto-generated method stub
+                return 0;
+            }
+        });
 		return eventComponentRepository.findAll();
 	}
 	
