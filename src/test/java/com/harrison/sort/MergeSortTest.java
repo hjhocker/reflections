@@ -27,7 +27,6 @@ public class MergeSortTest {
     public void test() {
         mergeSort.sort(skills);
         for (int i=0;i<3;i++) {
-            System.out.println("Check " + skills[i].intValue() + " " + skills[i+1].intValue());
             assertTrue(skills[i].intValue() >= skills[i+1].intValue());
         }
     }
