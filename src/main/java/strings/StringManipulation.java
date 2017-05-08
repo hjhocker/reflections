@@ -11,10 +11,7 @@ public class StringManipulation {
     }
     
     public boolean isPlanindrome(String str) {
-        if (str.equals(reverse(str))) {
-            return true;
-        }
-        return false;
+         return str.equals(reverse(str));
     }
     
 }
