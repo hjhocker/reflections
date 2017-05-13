@@ -3,6 +3,7 @@ package com.harrison.sort;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,20 +12,18 @@ public class MergeSortTest {
 
     private int[] skills;
 
-    private int n = 6;
+    private int n = 3;
     
     private MergeSort mergeSort;
     
     @Before
     public void setup() {
+        Random random = new Random();
         mergeSort = new MergeSort();
         skills = new int[n];
-        skills[0] = 3;
-        skills[1] = 1;
-        skills[2] = 55;
-        skills[3] = 23;
-        skills[4] = 1669;
-        skills[5] = 1664;
+        for (int i=0;i<n;i++) {
+            skills[i] = random.nextInt(1000);
+        }
     }
     
     @Test
