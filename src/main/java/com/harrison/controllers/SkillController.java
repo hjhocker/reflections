@@ -23,7 +23,7 @@ public class SkillController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Skill>> getSkills() {
-        return new ResponseEntity<>(skillRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(skillRepository.findAllOrderByYearsOfExperience(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
