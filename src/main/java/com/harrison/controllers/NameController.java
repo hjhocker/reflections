@@ -14,13 +14,21 @@ import com.harrison.repository.NameRepository;
 @RequestMapping(value = "/api/name")
 public class NameController {
 
-	@Autowired
-	private NameRepository nameRepository;
+    @Autowired
+    private NameRepository nameRepository;
 
-	@RequestMapping(value = "/full", method = RequestMethod.GET)
-	public ResponseEntity<String> getFullName() {
-		Name name = nameRepository.findAll().get(0);
-		String fullName = name.getFirstName() + " " + name.getMiddleName() + " " + name.getLastName();
-		return new ResponseEntity<>(fullName, HttpStatus.OK);
-	}
+    @RequestMapping(value = "/full", method = RequestMethod.GET)
+    public ResponseEntity<String> getFullName() {
+        Name name = nameRepository.findAll().get(0);
+        String fullName = name.getFirstName() + " " + name.getMiddleName() + " " + name.getLastName();
+        return new ResponseEntity<>(fullName, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/firstlast", method = RequestMethod.GET)
+    public ResponseEntity<String> getFirstLastName() {
+        Name name = nameRepository.findAll().get(0);
+        String firstlast = name.getFirstName() + " " + name.getLastName();
+        return new ResponseEntity<>(firstlast, HttpStatus.OK);
+    }
+
 }
