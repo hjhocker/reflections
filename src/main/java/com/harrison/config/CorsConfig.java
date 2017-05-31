@@ -11,14 +11,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class CorsConfig {
 
     @Value("${reflections.hostname}")
-    private String reflectionsHostname;
+    private String[] reflectionsHostnames;
     
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**").allowedOrigins(reflectionsHostname);
+                registry.addMapping("/api/**").allowedOrigins(reflectionsHostnames);
             }
         };
     }
