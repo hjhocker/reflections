@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.harrison.domain.Skill;
-import com.harrison.exceptions.DomainNotFoundException;
 import com.harrison.repository.SkillRepository;
 
 @RestController
@@ -31,13 +30,4 @@ public class SkillController {
         return new ResponseEntity<>(skillRepository.findByName(name), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    public ResponseEntity<Skill> deleteSkill(@PathVariable("name") String name) {
-        Skill skill = skillRepository.findByName(name);
-        if (skill == null) {
-            throw new DomainNotFoundException("No skills with name " + name + " found");
-        }
-        skillRepository.delete(skill);
-        return new ResponseEntity<>(skill, HttpStatus.OK);
-    }
 }
