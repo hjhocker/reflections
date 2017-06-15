@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.harrison.domain.Skill;
-import com.harrison.repository.SkillRepository;
+import com.harrison.reflections.domain.Skill;
+import com.harrison.reflections.repository.SkillRepository;
 
 @RestController
 @RequestMapping(value = "/api/skills")

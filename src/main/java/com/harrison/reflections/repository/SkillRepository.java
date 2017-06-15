@@ -1,4 +1,4 @@
-package com.harrison.repository;
+package com.harrison.reflections.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.harrison.domain.Skill;
+import com.harrison.reflections.domain.Skill;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
