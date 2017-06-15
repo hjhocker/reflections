@@ -28,10 +28,10 @@ public class AwsPostgresConfig {
     @Bean(name = "reflectionsDataSource")
     public DataSource reflectionsDataSource() {
         return DataSourceBuilder.create()
-                .url("reflections.datasource.url")
-                .username("reflections.datasource.username")
-                .password("reflections.datasource.password")
-                .driverClassName("reflections.datasource.driverClassName")
+                .url(env.getRequiredProperty("reflections.datasource.url"))
+                .username(env.getRequiredProperty("reflections.datasource.username"))
+                .password(env.getRequiredProperty("reflections.datasource.password"))
+                .driverClassName(env.getRequiredProperty("reflections.datasource.driverClassName"))
                 .build();
     }
     
@@ -39,7 +39,6 @@ public class AwsPostgresConfig {
     public LocalContainerEntityManagerFactoryBean reflectionsEntityManagerFactory(EntityManagerFactoryBuilder builder) {
         Map<String, String> properties = new HashMap<>();
         properties.put("hibernate.dialect", env.getRequiredProperty("reflections.hibernate.dialect"));
-        properties.put("hibernate.temp.use_jdbc_metadata_defaults", env.getRequiredProperty("false"));
         return builder
                 .dataSource(reflectionsDataSource())
                 .packages("com.harrison.reflections.domain")
