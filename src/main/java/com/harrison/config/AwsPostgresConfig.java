@@ -31,7 +31,7 @@ public class AwsPostgresConfig {
                 .url("reflections.datasource.url")
                 .username("reflections.datasource.username")
                 .password("reflections.datasource.password")
-                .driverClassName("reflections.datasource.driverClass")
+                .driverClassName("reflections.datasource.driverClassName")
                 .build();
     }
     
