@@ -1,7 +1,5 @@
 package com.harrison.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.harrison.reflections.domain.Name;
 import com.harrison.reflections.repository.NameRepository;
-import com.harrison.suggestedskills.domain.SuggestedSkill;
-import com.harrison.suggestedskills.repository.SuggestedSkillRepository;
 
 @RestController
 @RequestMapping(value = "/api/name")
@@ -20,9 +16,6 @@ public class NameController {
 
     @Autowired
     private NameRepository nameRepository;
-    
-    @Autowired
-    private SuggestedSkillRepository re;
 
     @RequestMapping(value = "/full", method = RequestMethod.GET)
     public ResponseEntity<String> getFullName() {
@@ -36,11 +29,6 @@ public class NameController {
         Name name = nameRepository.findAll().get(0);
         String firstlast = name.getFirstName() + " " + name.getLastName();
         return new ResponseEntity<>(firstlast, HttpStatus.OK);
-    }
-    
-    @RequestMapping(value = "/suggest", method = RequestMethod.GET) 
-    public List<SuggestedSkill> getSugg() {
-        return re.findAll();
     }
 
 }
