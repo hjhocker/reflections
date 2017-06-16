@@ -2,10 +2,10 @@ package com.harrison;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableJpaRepositories
+@ComponentScan(basePackages = {"com.harrison.config"})
 public class Application {
 
 	public static void main(String[] args) {

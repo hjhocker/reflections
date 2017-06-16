@@ -3,6 +3,7 @@ package com.harrison.config;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.harrison.reflections.repository", 
-        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactory")
+        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactoryBean")
 @Profile("aws")
 public class AwsReflectionsConfig {
     
@@ -38,8 +39,8 @@ public class AwsReflectionsConfig {
     }
     
     @Primary
-    @Bean(name = "reflectionsLocalEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean reflectionsLocalEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    @Bean(name = "reflectionsLocalEntityManagerFactoryBean")
+    public LocalContainerEntityManagerFactoryBean reflectionsLocalEntityManagerFactoryBean(EntityManagerFactoryBuilder builder) {
         Map<String, String> properties = new HashMap<>();
         properties.put("hibernate.dialect", env.getRequiredProperty("reflections.hibernate.dialect"));
         return builder
@@ -48,5 +49,12 @@ public class AwsReflectionsConfig {
                 .persistenceUnit("reflections")
                 .build();
     }
-
+    
+//    @Primary
+//    @Bean(name = "reflectionsEntityManagerFactory")
+//    public EntityManagerFactory reflectionsEntityManagerFactory(
+//            LocalContainerEntityManagerFactoryBean reflectionsLocalEntityManagerFactoryBean) {
+//        return reflectionsLocalEntityManagerFactoryBean.getObject();
+//    }
+    
 }
