@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.harrison.reflections.domain.Name;
 import com.harrison.reflections.repository.NameRepository;
+import com.harrison.suggestedskills.repository.SuggestedSkillRepository;
 
 @RestController
 @RequestMapping(value = "/api/name")
@@ -16,6 +17,9 @@ public class NameController {
 
     @Autowired
     private NameRepository nameRepository;
+    
+    @Autowired
+    private SuggestedSkillRepository re;
 
     @RequestMapping(value = "/full", method = RequestMethod.GET)
     public ResponseEntity<String> getFullName() {
