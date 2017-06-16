@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
@@ -25,6 +26,11 @@ public class AwsReflectionsConfig {
     
     @Autowired
     private Environment env;
+    
+    @Bean(name = "reflectionsJdbcTemplate")
+    public JdbcTemplate reflectionsJdbcTemplate() {
+        return new JdbcTemplate(reflectionsDataSource());
+    }
     
     @Primary
     @Bean(name = "reflectionsDataSource")
