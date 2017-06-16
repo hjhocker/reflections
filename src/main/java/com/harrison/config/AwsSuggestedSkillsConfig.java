@@ -25,11 +25,6 @@ public class AwsSuggestedSkillsConfig {
     @Autowired
     private Environment env;
     
-//    @Bean(name = "suggestedSkillsJdbTempalte")
-//    public JdbcTemplate suggestedSkillsJdbTempalte() {
-//        return new JdbcTemplate(suggestedSkillsDataSource());
-//    }
-    
     @Bean(name = "suggestedSkillsDataSource")
     public DataSource suggestedSkillsDataSource() {
         return DataSourceBuilder.create()
