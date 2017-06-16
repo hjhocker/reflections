@@ -3,7 +3,6 @@ package com.harrison.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +48,5 @@ public class AwsReflectionsConfig {
                 .persistenceUnit("reflections")
                 .build();
     }
-    
-//    @Primary
-//    @Bean(name = "reflectionsEntityManagerFactory")
-//    public EntityManagerFactory reflectionsEntityManagerFactory(
-//            LocalContainerEntityManagerFactoryBean reflectionsLocalEntityManagerFactoryBean) {
-//        return reflectionsLocalEntityManagerFactoryBean.getObject();
-//    }
     
 }

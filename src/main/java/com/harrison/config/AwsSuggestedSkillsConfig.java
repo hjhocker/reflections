@@ -18,18 +18,18 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.harrison.suggestedSkills.repository", 
-        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactory")
+        basePackages = "com.harrison.suggestedskills.repository", 
+        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean")
 @Profile("aws")
 public class AwsSuggestedSkillsConfig {
     
     @Autowired
     private Environment env;
     
-    @Bean(name = "suggestedSkillsJdbTempalte")
-    public JdbcTemplate suggestedSkillsJdbTempalte() {
-        return new JdbcTemplate(suggestedSkillsDataSource());
-    }
+//    @Bean(name = "suggestedSkillsJdbTempalte")
+//    public JdbcTemplate suggestedSkillsJdbTempalte() {
+//        return new JdbcTemplate(suggestedSkillsDataSource());
+//    }
     
     @Bean(name = "suggestedSkillsDataSource")
     public DataSource suggestedSkillsDataSource() {
@@ -41,13 +41,13 @@ public class AwsSuggestedSkillsConfig {
                 .build();
     }
     
-    @Bean(name = "suggestedSkillsLocalEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean suggestedSkillsLocalEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    @Bean(name = "suggestedSkillsLocalEntityManagerFactoryBean")
+    public LocalContainerEntityManagerFactoryBean suggestedSkillsLocalEntityManagerFactoryBean(EntityManagerFactoryBuilder builder) {
         Map<String, String> properties = new HashMap<>();
         properties.put("hibernate.dialect", env.getRequiredProperty("suggestedSkills.hibernate.dialect"));
         return builder
                 .dataSource(suggestedSkillsDataSource())
-                .packages("com.harrison.suggestedSkills.domain")
+                .packages("com.harrison.suggestedskills.domain")
                 .persistenceUnit("suggestedSkills")
                 .build();
     }
