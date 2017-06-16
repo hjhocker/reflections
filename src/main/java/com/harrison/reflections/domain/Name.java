@@ -1,4 +1,4 @@
-package com.harrison.domain;
+package com.harrison.reflections.domain;
 
 import java.io.Serializable;
 

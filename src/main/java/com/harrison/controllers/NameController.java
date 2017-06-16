@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.harrison.domain.Name;
-import com.harrison.repository.NameRepository;
+import com.harrison.reflections.domain.Name;
+import com.harrison.reflections.repository.NameRepository;
 
 @RestController
 @RequestMapping(value = "/api/name")
