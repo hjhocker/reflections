@@ -27,7 +27,7 @@ public class FlywayConfig {
     @Bean(initMethod = "migrate")
     @Primary
     @FlywayDataSource
-    public Flyway reflectionsFlyway() throws IOException {
+    public Flyway flyway() throws IOException {
         Flyway flyway = new Flyway();
         Properties properties = new Properties();
         flyway.setLocations("classpath:db/migration/reflections");
@@ -38,7 +38,7 @@ public class FlywayConfig {
     
     @Bean(initMethod = "migrate")
     @FlywayDataSource
-    public Flyway flyway() throws IOException {
+    public Flyway sugestedSkillsFlyway() throws IOException {
         Flyway flyway = new Flyway();
         Properties properties = new Properties();
         flyway.configure(properties);
