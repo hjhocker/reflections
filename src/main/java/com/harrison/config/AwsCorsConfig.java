@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Component
 @Profile("aws")
-public class CorsConfig {
+public class AwsCorsConfig {
 
     @Value("${reflections.hostname}")
     private String[] reflectionsHostnames;
