@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,7 +31,7 @@ public class SuggestedSkillsController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SuggestedSkill>> getSkills() throws SQLException {
-        String sql = "select * from suggested_skill";
+        String sql = "select distinct * from suggested_skill";
         List<SuggestedSkill> list = new ArrayList<>();
         try (Connection conn = suggestedSkillsDataSource.getConnection(); 
                 PreparedStatement ps = conn.prepareStatement(sql);) {
@@ -44,6 +45,19 @@ public class SuggestedSkillsController {
                 }
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "", method = RequestMethod.POST) 
+    public ResponseEntity<SuggestedSkill> createSuggestedSkill(@RequestBody SuggestedSkill skill) throws SQLException {
+        String sql = "insert into suggested_skill (name, years_of_experience, proficiency) values (?,?,?)";
+        try (Connection conn = suggestedSkillsDataSource.getConnection(); 
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+            ps.setString(1, skill.getName());
+            ps.setFloat(2, skill.getYearsOfExperience());
+            ps.setString(3, skill.getProficiency().toString());
+            ps.execute();
+        }
+        return new ResponseEntity<>(skill, HttpStatus.CREATED);
     }
 
 }
