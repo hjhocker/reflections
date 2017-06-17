@@ -31,29 +31,17 @@ public class SuggestedSkillsController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SuggestedSkill>> getSkills() throws SQLException {
         String sql = "select * from suggested_skill";
-        ResultSet rs;
-        Connection conn = null;
-        PreparedStatement ps = null;
-        try {
-            conn = suggestedSkillsDataSource.getConnection();
-            ps = conn.prepareStatement(sql);
-            try {
-                rs = ps.executeQuery();
-            } finally {
-                ps.close();
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        List<SuggestedSkill> list = new ArrayList<>(rs.getFetchSize());
-        while (rs.next()) {
-            SuggestedSkill skill = new SuggestedSkill();
-            skill.setName(rs.getString("name"));
-            skill.setYearsOfExperience(Float.valueOf(rs.getString("years_of_experience")));
-            skill.setProficiency(Proficiency.valueOf(rs.getString("proficiency")));
-            list.add(skill);
+        List<SuggestedSkill> list = new ArrayList<>();
+        try (Connection conn = suggestedSkillsDataSource.getConnection(); 
+                PreparedStatement ps = conn.prepareStatement(sql);) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    SuggestedSkill skill = new SuggestedSkill();
+                    skill.setName(rs.getString("name"));
+                    skill.setYearsOfExperience(Float.valueOf(rs.getString("years_of_experience")));
+                    skill.setProficiency(Proficiency.valueOf(rs.getString("proficiency")));
+                    list.add(skill);
+                }
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
