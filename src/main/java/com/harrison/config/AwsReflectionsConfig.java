@@ -31,18 +31,6 @@ public class AwsReflectionsConfig {
     @Autowired
     private Environment env;
     
-    @Bean(initMethod = "migrate")
-    @Primary
-    @FlywayDataSource
-    public Flyway reflectionsFlyway() throws IOException {
-        Flyway flyway = new Flyway();
-        Properties properties = new Properties();
-        flyway.setLocations("classpath:db/migration/reflections");
-        flyway.configure(properties);
-        flyway.setDataSource(reflectionsDataSource());
-        return flyway;
-    }
-    
     @Bean(name = "reflectionsJdbcTemplate")
     public JdbcTemplate reflectionsJdbcTemplate() {
         return new JdbcTemplate(reflectionsDataSource());

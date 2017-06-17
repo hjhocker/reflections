@@ -1,11 +1,9 @@
 package com.harrison.config;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.flywaydb.core.Flyway;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -20,18 +18,6 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
         basePackages = "com.harrison.reflections.repository")
 @Profile("local")
 public class LocalReflectionsDbConfig {
-
-    @Bean(initMethod = "migrate")
-    @Primary
-    @FlywayDataSource
-    public Flyway reflectionsFlyway() throws IOException {
-        Flyway flyway = new Flyway();
-        Properties properties = new Properties();
-        flyway.setLocations("classpath:db/migration/reflections");
-        flyway.configure(properties);
-        flyway.setDataSource(reflectionsDataSource());
-        return flyway;
-    }
     
     @Bean(name = "reflectionsDataSource")
     @Primary
