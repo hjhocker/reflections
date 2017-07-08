@@ -26,18 +26,25 @@ public class SkillController {
     private SkillRepository skillRepository;
     
     @Autowired
-    @Qualifier("suggestedSkillsPlatformTransactionManager")
+    @Qualifier("reflectionsPlatformTransactionManager")
     private PlatformTransactionManager transactionManager;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Skill>> getSkills() {
-        return new ResponseEntity<>(skillRepository.findAllOrderByYearsOfExperience(), HttpStatus.OK);
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        List<Skill> skills = transactionTemplate.execute(new TransactionCallback<List<Skill>>() {
+            @Override
+            public List<Skill> doInTransaction(TransactionStatus status) {
+                return skillRepository.findAllOrderByYearsOfExperience();
+            }
+        });
+        return new ResponseEntity<>(skills, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<Skill> getSkill(@PathVariable("name") String name) {
-        TransactionTemplate template = new TransactionTemplate(transactionManager);
-        Skill skill = template.execute(new TransactionCallback<Skill>() {
+        TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+        Skill skill = transactionTemplate.execute(new TransactionCallback<Skill>() {
             @Override
             public Skill doInTransaction(TransactionStatus status) {
                 return skillRepository.findByName(name);
