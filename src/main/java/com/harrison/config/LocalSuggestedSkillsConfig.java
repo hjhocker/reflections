@@ -25,7 +25,8 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.harrison.suggestedskills.repository", 
-        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean")
+        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean",
+        transactionManagerRef = "suggestedSkillsPlatformTransactionManager")
 @Profile("local")
 public class LocalSuggestedSkillsConfig {
 

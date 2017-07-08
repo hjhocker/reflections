@@ -23,7 +23,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.harrison.suggestedskills.repository", 
-        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean")
+        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean",
+        transactionManagerRef = "suggestedSkillsPlatformTransactionManager")
 @Profile("aws")
 public class AwsSuggestedSkillsConfig {
     

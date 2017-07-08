@@ -26,7 +26,8 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.harrison.reflections.repository", 
-        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactoryBean")
+        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactoryBean",
+        transactionManagerRef = "reflectionsPlatformTransactionManager")
 @Profile("local")
 public class LocalReflectionsDbConfig {
 

@@ -24,7 +24,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.harrison.reflections.repository", 
-        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactoryBean")
+        entityManagerFactoryRef = "reflectionsLocalEntityManagerFactoryBean",
+        transactionManagerRef = "reflectionsPlatformTransactionManager")
 @Profile("aws")
 public class AwsReflectionsConfig {
     
