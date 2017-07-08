@@ -64,7 +64,7 @@ public class SkillController {
             @Override
             public int getIsolationLevel() {
                 // TODO Auto-generated method stub
-                return 0;
+                return 1;
             }
         });
         return new ResponseEntity<>(skillRepository.findByName(name), HttpStatus.OK);
