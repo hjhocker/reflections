@@ -21,6 +21,10 @@ public class FlywayConfig {
     private DataSource reflectionsDataSource;
     
     @Autowired
+    @Qualifier("aiDataSource")
+    private DataSource aiDataSource;
+    
+    @Autowired
     @Qualifier("suggestedSkillsDataSource")
     private DataSource suggestedSkillsDataSource;
     
@@ -44,6 +48,17 @@ public class FlywayConfig {
         flyway.configure(properties);
         flyway.setLocations("classpath:db/migration/suggestedskills");
         flyway.setDataSource(suggestedSkillsDataSource);
+        return flyway;
+    }
+    
+    @Bean(initMethod = "migrate")
+    @FlywayDataSource
+    public Flyway aiFlyway() throws IOException {
+        Flyway flyway = new Flyway();
+        Properties properties = new Properties();
+        flyway.configure(properties);
+        flyway.setLocations("classpath:db/migration/ai");
+        flyway.setDataSource(aiDataSource);
         return flyway;
     }
     
