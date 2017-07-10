@@ -40,7 +40,6 @@ public class AwsAIDbConfig {
     }
 
     @Bean(name = "aiDataSource")
-    @Primary
     @FlywayDataSource
     public DataSource aiDataSource() {
         return DataSourceBuilder.create()
@@ -51,7 +50,6 @@ public class AwsAIDbConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "aiLocalEntityManagerFactoryBean")
     public LocalContainerEntityManagerFactoryBean aiLocalEntityManagerFactoryBean(EntityManagerFactoryBuilder builder) throws IOException {
         Map<String, String> properties = new HashMap<>();
@@ -63,7 +61,6 @@ public class AwsAIDbConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "aiPlatformTransactionManager")
     public PlatformTransactionManager aiPlatformTransactionManager(
             @Qualifier("aiLocalEntityManagerFactoryBean") EntityManagerFactory aiLocalEntityManagerFactoryBean) {
