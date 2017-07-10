@@ -1,4 +1,4 @@
-package com.harrison.config;
+package com.harrison.config.local;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -24,40 +25,42 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "com.harrison.suggestedskills.repository", 
-        entityManagerFactoryRef = "suggestedSkillsLocalEntityManagerFactoryBean",
-        transactionManagerRef = "suggestedSkillsPlatformTransactionManager")
+        basePackages = "com.harrison.ai.repository", 
+        entityManagerFactoryRef = "aiLocalEntityManagerFactoryBean",
+        transactionManagerRef = "aiPlatformTransactionManager")
 @Profile("local")
-public class LocalSuggestedSkillsConfig {
+public class LocalAIDbConfig {
 
     @Autowired
     private Environment env;
     
-    @Bean(name = "suggestedSkillsDataSource")
+    @Bean(name = "aiDataSource")
+    @Primary
     @FlywayDataSource
-    public DataSource suggestedSkillsDataSource() throws IOException {
+    public DataSource aiDataSource() throws IOException {
         return EmbeddedPostgres
                 .builder()
-                .setPort(15433)
+                .setPort(15432)
                 .start()
                 .getPostgresDatabase();
     }
 
-    @Bean(name = "suggestedSkillsLocalEntityManagerFactoryBean")
-    public LocalContainerEntityManagerFactoryBean suggestedSkillsLocalEntityManagerFactoryBean(EntityManagerFactoryBuilder builder) throws IOException {
+    @Primary
+    @Bean(name = "aiLocalEntityManagerFactoryBean")
+    public LocalContainerEntityManagerFactoryBean aiLocalEntityManagerFactoryBean(EntityManagerFactoryBuilder builder) throws IOException {
         Map<String, String> properties = new HashMap<>();
-        properties.put("hibernate.dialect", env.getRequiredProperty("suggestedSkills.hibernate.dialect"));
+        properties.put("hibernate.dialect", env.getRequiredProperty("ai.hibernate.dialect"));
         return builder
-                .dataSource(suggestedSkillsDataSource())
-                .packages("com.harrison.suggestedskills.domain")
-                .persistenceUnit("suggestedSkills")
+                .dataSource(aiDataSource())
+                .packages("com.harrison.ai.domain")
+                .persistenceUnit("ai")
                 .build();
     }
     
-    @Bean(name = "suggestedSkillsPlatformTransactionManager")
-    public PlatformTransactionManager suggestedSkillsPlatformTransactionManager(
-            @Qualifier("suggestedSkillsLocalEntityManagerFactoryBean") EntityManagerFactory suggestedSkillsLocalEntityManagerFactoryBean) {
-        return new JpaTransactionManager(suggestedSkillsLocalEntityManagerFactoryBean);
+    @Primary
+    @Bean(name = "aiPlatformTransactionManager")
+    public PlatformTransactionManager aiPlatformTransactionManager(
+            @Qualifier("aiLocalEntityManagerFactoryBean") EntityManagerFactory aiLocalEntityManagerFactoryBean) {
+        return new JpaTransactionManager(aiLocalEntityManagerFactoryBean);
     }
-    
 }

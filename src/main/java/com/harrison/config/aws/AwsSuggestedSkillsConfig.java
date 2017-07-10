@@ -1,4 +1,4 @@
-package com.harrison.config;
+package com.harrison.config.aws;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class AwsSuggestedSkillsConfig {
     
     @Bean(name = "suggestedSkillsJdbcTemplate")
     public JdbcTemplate suggestedSkillsJdbcTemplate() {
-        return new JdbcTemplate(suggestedSkillsDataSource());
+        return new JdbcTemplate(this.suggestedSkillsDataSource());
     }
     
     @Bean(name = "suggestedSkillsDataSource")
