@@ -17,7 +17,7 @@ public class IrisEnumConverter implements AttributeConverter<IrisSpeciesEnum, St
             return "virginica";
         default:
             throw new IllegalArgumentException("Unknown Iris Species: " + attribute); 
-    }
+        }
     }
 
     @Override
@@ -31,7 +31,7 @@ public class IrisEnumConverter implements AttributeConverter<IrisSpeciesEnum, St
             return IrisSpeciesEnum.VIRGINICA;
         default:
             throw new IllegalArgumentException("Unknown Iris Species: " + dbData); 
-    }
+        }
     }
 
 }
