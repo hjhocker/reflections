@@ -57,6 +57,8 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
     compile group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
     compile group: 'com.couchbase.client', name: 'java-client', version: '2.4.4'
+    //compile group: 'com.rabbitmq', name: 'amqp-client', version: '2.3.1'
+    compile("org.springframework.boot:spring-boot-starter-amqp")
     compile 'com.amazonaws:aws-java-sdk-s3'
     // https://mvnrepository.com/artifact/tw.edu.ntu.csie/libsvm
     compile group: 'tw.edu.ntu.csie', name: 'libsvm', version: '3.17'
