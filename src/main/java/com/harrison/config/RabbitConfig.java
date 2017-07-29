@@ -10,8 +10,7 @@ public class RabbitConfig {
 
     @Bean
     public Queue hello() {
-        Queue q = new Queue("hello", false, false, false);
-        return q;
+        return new Queue("hello", false, false, false);
     }
 
     @Profile("receiver")

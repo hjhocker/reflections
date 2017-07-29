@@ -18,7 +18,6 @@ public class Sender {
     }
 
     public void send() {
-        
         this.amqpTemplate.convertAndSend("hello", "whats up?");
     }
     
