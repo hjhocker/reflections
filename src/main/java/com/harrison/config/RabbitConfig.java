@@ -6,8 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile("local")
 public class RabbitConfig {
 
+    @org.springframework.amqp.rabbit.annotation.EnableRabbit
+    public static final class EnableRabbit {
+        
+    }
+    
     @Bean
     public Queue hello() {
         return new Queue("hello", false, false, false);
