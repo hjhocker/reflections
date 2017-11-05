@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.harrison.reflections.domain.Employee;
+import com.harrison.reflections.domain.EmployeeRead;
+import com.harrison.reflections.domain.EmployeeWrite;
+import com.harrison.reflections.repository.EmployeeReadRepository;
 import com.harrison.reflections.repository.EmployeeRepository;
 
 @RestController
@@ -19,13 +21,16 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
     
+    @Autowired
+    private EmployeeReadRepository employeeReadRepository;
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
-        return new ResponseEntity<>(employeeRepository.findByEmployeeId(id), HttpStatus.OK);
+    public ResponseEntity<EmployeeRead> getEmployee(@PathVariable Long id) {
+        return new ResponseEntity<>(employeeReadRepository.findByEmployeeId(id), HttpStatus.OK);
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<EmployeeWrite> createEmployee(@RequestBody EmployeeWrite employee) {
         return new ResponseEntity<>(employeeRepository.save(employee), HttpStatus.OK);
     }
     

@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "employee")
-public class Employee implements Serializable {
+public class EmployeeRead implements Serializable {
 
     private static final long serialVersionUID = -4172063317499569232L;
 
@@ -44,12 +44,11 @@ public class Employee implements Serializable {
             property = "employeeId"
     )
     @JsonIdentityReference(alwaysAsId = true)
-    private Employee manager;
+    private EmployeeRead manager;
 
-    @JsonIgnoreProperties({"manager"})
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id")
-    private Set<Employee> subordinates = new HashSet<Employee>();
+    private Set<EmployeeRead> subordinates = new HashSet<EmployeeRead>();
 
     public Long getEmployeeId() {
         return employeeId;
@@ -75,19 +74,19 @@ public class Employee implements Serializable {
         this.lastName = lastName;
     }
 
-    public Employee getManager() {
+    public EmployeeRead getManager() {
         return manager;
     }
 
-    public void setManager(Employee manager) {
+    public void setManager(EmployeeRead manager) {
         this.manager = manager;
     }
 
-    public Set<Employee> getSubordinates() {
+    public Set<EmployeeRead> getSubordinates() {
         return subordinates;
     }
 
-    public void setSubordinates(Set<Employee> subordinates) {
+    public void setSubordinates(Set<EmployeeRead> subordinates) {
         this.subordinates = subordinates;
     }
 
