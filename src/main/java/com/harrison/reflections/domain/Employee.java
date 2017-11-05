@@ -15,12 +15,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.ObjectIdResolver;
 
 @Entity
 @Table(name = "employee")
@@ -41,11 +39,13 @@ public class Employee implements Serializable {
     
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="manager_id")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@employeeId")
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityInfo(
+//            generator = ObjectIdGenerators.IntSequenceGenerator.class, 
+//            property = "@employeeId", 
+//            resolver = ObjectIdResolver.class
+//    )
     private Employee manager;
 
-    @Autowired
     @JsonIgnoreProperties({"manager"})
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id")
