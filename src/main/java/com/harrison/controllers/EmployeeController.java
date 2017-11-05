@@ -30,8 +30,8 @@ public class EmployeeController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<EmployeeWrite> createEmployee(@RequestBody EmployeeWrite employee) {
-        return new ResponseEntity<>(employeeRepository.save(employee), HttpStatus.OK);
+    public ResponseEntity<EmployeeRead> createEmployee(@RequestBody EmployeeRead employee) {
+        return new ResponseEntity<>(employeeReadRepository.save(employee), HttpStatus.OK);
     }
     
 }
