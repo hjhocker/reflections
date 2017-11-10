@@ -64,6 +64,7 @@ dependencies {
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.6.7'
     compile 'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.6.7'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.7'
+    compile files('libs/aspose-words-17.7-jdk16.jar')
     // https://mvnrepository.com/artifact/tw.edu.ntu.csie/libsvm
     compile group: 'tw.edu.ntu.csie', name: 'libsvm', version: '3.17'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
