@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aspose.cells.Workbook;
 import com.aspose.words.Document;
 import com.aspose.words.SaveOutputParameters;
 import com.harrison.reflections.domain.EmployeeRead;
@@ -36,6 +37,13 @@ public class EmployeeController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<EmployeeWrite> createEmployee(@RequestBody EmployeeWrite employee) {
         return new ResponseEntity<>(employeeRepository.save(employee), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/cells", method = RequestMethod.POST)
+    public ResponseEntity<Void> cells(@RequestBody byte[] document) throws Exception {
+        Workbook wb = new Workbook(new ByteArrayInputStream(document));
+        wb.save("/tmp/out_excel.pdf");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @RequestMapping(value = "/report", method = RequestMethod.POST)
