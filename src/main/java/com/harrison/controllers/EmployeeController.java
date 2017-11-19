@@ -67,7 +67,7 @@ public class EmployeeController {
         // It needs to be populated by updating the fields in the document.
         doc.updateFields();
         String dataDir = "/tmp/";
-        doc.save(dataDir + "AsposeTableOfContents.doc");
+        doc.save(dataDir + "AsposeTableOfContents.docx");
          
         // ==================================
         // Table Of Contents with Headings
@@ -81,6 +81,8 @@ public class EmployeeController {
         Style harrisonStyle = doc1.getStyles().add(StyleType.PARAGRAPH, "Harrison Style");
         harrisonStyle.getFont().setName("Verdana");
         harrisonStyle.getFont().setSize(14);
+
+        Style simplePictureStyle = doc1.getStyles().add(StyleType.PARAGRAPH, "Picture Style");
 
         // Insert a table of contents at the beginning of the document.
         builder.insertTableOfContents("\\o \"1-3\" \\h \\z \\u");
@@ -114,18 +116,35 @@ public class EmployeeController {
             builder.getParagraphFormat().setStyle(harrisonStyle);
             builder.writeln("subsection text with a cool style");
 
+            builder.startTable();
+            Cell cell = builder.insertCell();
+            builder.write("Row 1, Cell 1 Content.");
+            builder.insertCell();
+            builder.write("Row 1, Cell 2 Content.");
+            builder.endTable();
+            
         builder.getParagraphFormat().setStyleIdentifier(StyleIdentifier.HEADING_3);
         builder.writeln("Heading 3.1.2");
         builder.writeln("Heading 3.1.3");
-         
+
         builder.getParagraphFormat().setStyleIdentifier(StyleIdentifier.HEADING_2);
-         
         builder.writeln("Heading 3.2");
+            builder.getParagraphFormat().setStyle(harrisonStyle);
+            builder.writeln("subsection text with a cool style");
+            builder.getParagraphFormat().setStyle(simplePictureStyle);
+//            builder.getCellFormat().getBorders().
+            builder.getParagraphFormat().setStyleIdentifier(StyleIdentifier.PLAIN_TEXT);
+            builder.startTable();
+            builder.insertCell();
+            builder.insertImage("/Users/harrisonhocker/test.tiff", 300, 300);
+            builder.endTable();
+
+        builder.getParagraphFormat().setStyleIdentifier(StyleIdentifier.HEADING_2);
         builder.writeln("Heading 3.3");
          
         // Call the method below to update the TOC.
         doc1.updateFields();
-        doc1.save(dataDir + "AsposeTOCHeadings.doc");
+        doc1.save(dataDir + "AsposeTOCHeadings.docx");
     }
     
 }
