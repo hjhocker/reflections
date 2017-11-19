@@ -1,5 +1,6 @@
 package com.harrison.controllers;
 
+import java.awt.*;
 import java.io.ByteArrayInputStream;
 
 import com.aspose.words.*;
@@ -17,6 +18,8 @@ import com.harrison.reflections.domain.EmployeeRead;
 import com.harrison.reflections.domain.EmployeeWrite;
 import com.harrison.reflections.repository.EmployeeReadRepository;
 import com.harrison.reflections.repository.EmployeeRepository;
+
+import static com.aspose.cells.BorderType.BOTTOM_BORDER;
 
 @RestController
 @RequestMapping(value = "/api/employee")
@@ -134,8 +137,11 @@ public class EmployeeController {
             builder.getParagraphFormat().setStyle(simplePictureStyle);
 //            builder.getCellFormat().getBorders().
             builder.getParagraphFormat().setStyleIdentifier(StyleIdentifier.PLAIN_TEXT);
-            builder.startTable();
-            builder.insertCell();
+            Table table = builder.startTable();
+            table.setBorder(BorderType.BOTTOM, LineStyle.NONE, 0.0, Color.WHITE, true);
+            Cell cell2 = builder.insertCell();
+            cell2.getCellFormat().getBorders().setLineWidth(0.0);
+            cell2.getCellFormat().getBorders().setColor(Color.WHITE);
             builder.insertImage("/Users/harrisonhocker/test.tiff", 300, 300);
             builder.endTable();
 
