@@ -1,3 +1,4 @@
+.DS_STORE
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -27,3 +28,5 @@ bin
 gradle
 gradlew.bat
 gradlew
+
+libs
