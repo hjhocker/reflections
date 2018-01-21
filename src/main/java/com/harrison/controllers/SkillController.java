@@ -96,8 +96,8 @@ public class SkillController {
 
         HttpHeaders headers = new HttpHeaders();
 //        headers.add("Authorization", "Bearer Bearer ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw");
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.setContentDispositionFormData("file","testing.docx");
+//        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+//        headers.setContentDispositionFormData("file","testing.docx");
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(map, headers);
 
