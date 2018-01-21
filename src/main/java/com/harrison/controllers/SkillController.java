@@ -63,36 +63,6 @@ public class SkillController {
         return new ResponseEntity<>(skills, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/convert")
-    public ResponseEntity<byte[]> convert() throws IOException {
-
-        Path path = Paths.get("/Users/harrisonhocker/Documents/testing.docx");
-        byte[] data = Files.readAllBytes(path);
-        RestTemplate rt = new RestTemplate();
-
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap();
-        ByteArrayResource bar = new ByteArrayResource(data) {
-            @Override
-            public String getFilename() {
-                return "testing.docx";
-            }
-        };
-        map.add("file", bar);
-        map.add("inputformat", "docx");
-        map.add("outputformat", "pdf");
-        map.add("input", "upload");
-        map.add("wait", true);
-        map.add("download", true);
-
-        HttpHeaders headers = new HttpHeaders();
-        String apikey = "ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw";
-        headers.add("Authorization", "Bearer " + apikey);
-
-        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(map, headers);
-
-        return rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
-    }
-
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<Skill> getSkill(@PathVariable("name") String name) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
