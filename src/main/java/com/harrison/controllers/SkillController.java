@@ -1,5 +1,6 @@
 package com.harrison.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import com.harrison.reflections.domain.Name;
 import com.harrison.suggestedskills.domain.SuggestedSkill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
@@ -67,15 +69,22 @@ public class SkillController {
     public ResponseEntity<byte[]> convert() throws IOException {
 
         Path path = Paths.get("/Users/harrisonhocker/Documents/testing.docx");
-//        Files.re
         byte[] data = Files.readAllBytes(path);
+//        Files.getF
 
         RestTemplate rt = new RestTemplate();
 
         MultipartFile multipartFile;
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap();
-        map.add("file", new FileSystemResource("/Users/harrisonhocker/Documents/testing.docx"));
+
+        map.add("file", new ByteArrayResource(data) {
+            @Override
+            public String getFilename() {
+                return "testing.docx";
+            }
+        });
+//        map.add("file", new FileSystemResource("/Users/harrisonhocker/Documents/testing.docx")); //THIS WORKS!!!
         map.add("inputformat", "docx");
         map.add("outputformat", "pdf");
         map.add("input", "upload");
