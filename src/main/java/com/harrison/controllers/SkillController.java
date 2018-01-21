@@ -90,9 +90,9 @@ public class SkillController {
         map.add("input", "upload");
         map.add("wait", true);
         map.add("download", true);
-        map.add("Content-Disposition", "form-data");
-        map.add("name", "testing.docx");
-        map.add("filename", "testing.docx");
+//        map.add("Content-Disposition", "form-data");
+//        map.add("name", "testing.docx");
+//        map.add("filename", "testing.docx");
 
         HttpHeaders headers = new HttpHeaders();
 //        headers.add("Authorization", "Bearer Bearer ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw");
