@@ -68,42 +68,30 @@ public class SkillController {
 
         Path path = Paths.get("/Users/harrisonhocker/Documents/testing.docx");
         byte[] data = Files.readAllBytes(path);
-//        Files.getF
-
         RestTemplate rt = new RestTemplate();
 
-        MultipartFile multipartFile;
-
         MultiValueMap<String, Object> map = new LinkedMultiValueMap();
-
         map.add("file", new ByteArrayResource(data) {
             @Override
             public String getFilename() {
                 return "testing.docx";
             }
         });
-//        map.add("file", new FileSystemResource("/Users/harrisonhocker/Documents/testing.docx")); //THIS WORKS!!!
         map.add("inputformat", "docx");
         map.add("outputformat", "pdf");
         map.add("input", "upload");
         map.add("wait", true);
         map.add("download", true);
-//        map.add("Content-Disposition", "form-data");
-//        map.add("name", "testing.docx");
-//        map.add("filename", "testing.docx");
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw");
-//        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-//        headers.setContentDispositionFormData("file","testing.docx");
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(map, headers);
 
-        ResponseEntity<byte[]> response = rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
+        return rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
+    }
 
-        return response;
-
-    }    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public ResponseEntity<Skill> getSkill(@PathVariable("name") String name) {
         TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
         Skill skill = transactionTemplate.execute(new TransactionCallback<Skill>() {
