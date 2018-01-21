@@ -71,12 +71,13 @@ public class SkillController {
         RestTemplate rt = new RestTemplate();
 
         MultiValueMap<String, Object> map = new LinkedMultiValueMap();
-        map.add("file", new ByteArrayResource(data) {
+        ByteArrayResource bar = new ByteArrayResource(data) {
             @Override
             public String getFilename() {
                 return "testing.docx";
             }
-        });
+        };
+        map.add("file", bar);
         map.add("inputformat", "docx");
         map.add("outputformat", "pdf");
         map.add("input", "upload");
@@ -84,7 +85,8 @@ public class SkillController {
         map.add("download", true);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw");
+        String apikey = "ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw";
+        headers.add("Authorization", "Bearer " + apikey);
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(map, headers);
 
