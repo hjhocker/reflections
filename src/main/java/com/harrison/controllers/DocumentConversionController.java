@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,7 +21,7 @@ import java.nio.file.Paths;
 @RequestMapping(value = "/api/documentConversion")
 public class DocumentConversionController {
 
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<byte[]> convert() throws IOException {
 
         Path path = Paths.get("/Users/harrisonhocker/Documents/testing.docx");
@@ -34,7 +35,7 @@ public class DocumentConversionController {
                 return "testing.docx";
             }
         };
-        String apikey = "ZST2_kk2o72t-xsf6GA8i99g3vSdaoSZElVcfJ_d-BRUpn5gyjA7MYJiWOWvSaZ8_nLd7g2vaCRa6uuTbM49nw";
+        String apikey = "ml_6YlEN2JRpg1wBOfg7ezNVB79t941oaa_JWkIAMBEdblQPYOIGsZ13s7NA2_JgDOacYLGiEzLvJdqst1MT5w";
         map.add("file", bar);
         map.add("inputformat", "docx");
         map.add("outputformat", "pdf");
@@ -47,7 +48,9 @@ public class DocumentConversionController {
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(map, headers);
 
-        return rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
+        ResponseEntity<byte[]> response = rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
+
+        return response;
     }
 
 }
