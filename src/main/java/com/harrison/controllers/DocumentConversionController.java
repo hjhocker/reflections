@@ -1,10 +1,13 @@
 package com.harrison.controllers;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,12 @@ public class DocumentConversionController {
         byte[] data = Files.readAllBytes(path);
         RestTemplate rt = new RestTemplate();
 
+        HttpClient httpClient = HttpClientBuilder.create()
+                                    .setRedirectStrategy(new LaxRedirectStrategy())
+                                    .build();
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
+        rt.setRequestFactory(factory);
+
         MultiValueMap<String, Object> map = new LinkedMultiValueMap();
         ByteArrayResource bar = new ByteArrayResource(data) {
             @Override
@@ -50,7 +59,9 @@ public class DocumentConversionController {
 
         ResponseEntity<byte[]> response = rt.exchange("https://api.cloudconvert.com/convert", HttpMethod.POST, entity, byte[].class);
 
-        return response;
+        byte[] stuff = response.getBody();
+
+        return new ResponseEntity<>(stuff, HttpStatus.OK);
     }
 
 }
